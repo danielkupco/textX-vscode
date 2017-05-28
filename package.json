@@ -1,7 +1,7 @@
 {
     "name": "textx-vscode",
-    "displayName": "TextX",
-    "description": "Support for textX DSL language.",
+    "displayName": "textX",
+    "description": "Language support for textX DSL.",
     "version": "0.0.1",
     "publisher": "dkupco",
     "engines": {
@@ -21,6 +21,11 @@
             "language": "textx",
             "scopeName": "source.textx",
             "path": "./syntaxes/textx.tmLanguage.json"
+        }],
+        "themes": [{
+            "label": "textXDark",
+            "uiTheme": "vs-dark",
+            "path": "./themes/textXDark-color-theme.json"
         }]
     }
 }

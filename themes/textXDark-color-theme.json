@@ -1,0 +1,98 @@
+{
+	"name": "textXDark",
+    "colors": {
+		"editorBackground": "#000c18",
+		"editorForeground": "#6688cc",
+
+		"tabsContainerBackground": "#1c1c2a",
+		"inactiveTabBackground": "#10192c",
+		"activityBarBackground": "#051336"
+	},
+	"tokenColors": [
+		{
+			"settings": {
+				"background": "#000c18",
+				"foreground": "#6688cc"
+			}
+		},
+		{
+			"name": "Comments",
+			"scope": "comment",
+			"settings": {
+				"foreground": "#384887"
+			}
+		},
+		{
+			"name": "Strings",
+			"scope": "string",
+			"settings": {
+				"foreground": "#22aa44"
+			}
+		},
+		{
+			"name": "Numbers",
+			"scope": "constant.numeric",
+			"settings": {
+				"foreground": "#f280d0"
+			}
+		},
+		{
+			"name": "Built-in constants",
+			"scope": "constant.language",
+			"settings": {
+				"foreground": "#f280d0"
+			}
+		},
+		{
+			"name": "User-defined constants",
+			"scope": [
+				"constant.character",
+				"constant.other"
+			],
+			"settings": {
+				"foreground": "#f280d0"
+			}
+		},
+		{
+			"name": "Variables",
+			"scope": "variable",
+			"settings": {
+				"fontStyle": ""
+			}
+		},
+		{
+			"name": "Keywords",
+			"scope": "keyword",
+			"settings": {
+				"foreground": "#225588"
+			}
+		},
+		{
+			"name": "Storage",
+			"scope": "storage",
+			"settings": {
+				"fontStyle": "",
+				"foreground": "#225588"
+			}
+		},
+		{
+			"name": "Storage types",
+			"scope": "storage.type",
+			"settings": {
+				"fontStyle": "italic",
+				"foreground": "#9966b8"
+			}
+		},
+		{
+			"name": "Class names",
+			"scope": [
+				"entity.name.class",
+				"entity.name.type"
+			],
+			"settings": {
+				"fontStyle": "underline",
+				"foreground": "#ffeebb"
+			}
+		}
+	]
+}
