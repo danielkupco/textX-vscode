@@ -6,9 +6,6 @@
 			"include": "#keywords"
 		},
 		{
-			"include": "#strings"
-		},
-		{
 			"include": "#constants"
 		},
 		{
@@ -16,6 +13,9 @@
 		},
 		{
 			"include": "#comments"
+		},
+		{
+			"include": "#strings"
 		}
 	],
 	"repository": {
@@ -57,7 +57,7 @@
 				},
 				{
 					"name": "string.regexp.textx",
-					"match": "\\/[^\\*\\+\\?\\s]*\\/"
+					"match": "\\/[^\\*\\+\\?\\s]*.*\\/"
 				}
 			]
 		},
