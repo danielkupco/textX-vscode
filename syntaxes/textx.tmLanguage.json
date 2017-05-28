@@ -7,23 +7,87 @@
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#supports"
+		},
+		{
+			"include": "#comments"
 		}
 	],
 	"repository": {
 		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.textx",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.textx",
-			"begin": "\"",
-			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.textx",
-					"match": "\\\\."
+					"name": "keyword.operator.textx",
+					"match": "(\\||\\?|\\*|\\+|\\#|\\!|\\&)"
+				},
+				{
+					"name": "keyword.assignment.textx",
+					"match": "(\\?=|\\*=|\\+=|=)"
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.textx",
+					"begin": "\"",
+					"end": "\"",
+					"patterns": [
+						{
+							"name": "constant.character.escape.textx",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.single.textx",
+					"begin": "'",
+					"end": "'",
+					"patterns": [
+						{
+							"name": "constant.character.escape.textx",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.regexp.textx",
+					"match": "\\/[^\\*\\+\\?\\s]*\\/"
+				}
+			]
+		},
+		"constants": {
+			"patterns": [
+				{
+					"name": "constant.language.textx",
+					"match": "\b(true|false)\b"
+				}
+			]
+		},
+		"supports": {
+			"patterns": [
+				{
+					"name": "support.type.basetype.textx",
+					"comment": "Basetypes provided by the framework",
+					"match": "\b(STRING|INT|FLOAT|BOOL|ID)\b"
+				}
+			]
+		},
+		"comments": {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.textx",
+					"match": "\\/\\/.*$"
+				},
+				{
+					"name": "comment.block.textx",
+					"begin": "\\/\\*",
+					"end": "\\*\\/"
 				}
 			]
 		}

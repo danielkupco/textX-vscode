@@ -1,0 +1,44 @@
+Program:
+  'begin'
+    commands*=Command
+  'end'
+;
+/**sadw
+sasadw
+asdw 
+*/
+
+Command:
+  InitialCommand | MoveCommand
+;
+
+/**
+
+ */
+
+InitialCommand:
+  'initial' x=INT ',' y=INT
+;
+
+/*
+sadwdawd
+ */
+
+MoveCommand:
+  direction=Direction (steps=INT)?
+;
+
+++
+sadw
+asdw
+--
+
+/** sdaw */
+
+Direction:
+  "up"|"down"|"left"|"right"
+;
+// dsawdawada
+Comment:
+  /\/\/.*$/
+;
