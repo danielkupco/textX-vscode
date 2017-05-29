@@ -3,23 +3,26 @@
 	"name": "textX",
 	"patterns": [
 		{
-			"include": "#keywords"
+			"include": "#keyword"
 		},
 		{
-			"include": "#constants"
+			"include": "#constant"
 		},
 		{
-			"include": "#supports"
+			"include": "#support"
 		},
 		{
-			"include": "#comments"
+			"include": "#comment"
 		},
 		{
-			"include": "#strings"
+			"include": "#string"
+		},
+		{
+			"include": "#meta"
 		}
 	],
 	"repository": {
-		"keywords": {
+		"keyword": {
 			"patterns": [
 				{
 					"name": "keyword.operator.textx",
@@ -31,7 +34,7 @@
 				}
 			]
 		},
-		"strings": {
+		"string": {
 			"patterns": [
 				{
 					"name": "string.quoted.double.textx",
@@ -61,7 +64,7 @@
 				}
 			]
 		},
-		"constants": {
+		"constant": {
 			"patterns": [
 				{
 					"name": "constant.language.textx",
@@ -69,7 +72,7 @@
 				}
 			]
 		},
-		"supports": {
+		"support": {
 			"patterns": [
 				{
 					"name": "support.type.basetype.textx",
@@ -78,7 +81,7 @@
 				}
 			]
 		},
-		"comments": {
+		"comment": {
 			"patterns": [
 				{
 					"name": "comment.line.double-slash.textx",
@@ -88,6 +91,50 @@
 					"name": "comment.block.textx",
 					"begin": "\\/\\*",
 					"end": "\\*\\/"
+				}
+			]
+		},
+		"meta": {
+			"patterns": [
+				{
+					"name": "meta.entity.textx",
+					"comment": "Definition of an entity",
+					"begin": "^(\\w)+:(\\s|\\/\\/|\\/\\*)",
+					"beginCaptures": {
+						"1": {
+							"name": "entity.name.entity.textx"
+						}
+					},
+					"end": "^;(\\s|\\/\\/|\\/\\*)",
+					"patterns": [
+						{
+							"name": "meta.property.textx",
+							"comment": "A property within an entity",
+							"match": "(\\w+)\\b(=|\\+=|\\*=)(\\w+|\\[\\w+\\])",
+							"captures": {
+								"1": {
+									"name": "entity.name.property.textx"
+								},
+								"3": {
+									"name": "storage.type.property.textx",
+									"patterns": [
+										{
+											"name": "keyword.operator.reference.open.squarebracket.textx",
+											"match": "\\["
+										},
+										{
+											"name": "keyword.operator.reference.closed.squarebracket.textx",
+											"match": "\\]"
+										},
+										{
+											"name": "storage.type.property.name.textx",
+											"match": "\\w+"
+										}
+									]
+								} 
+							}
+						}
+					]
 				}
 			]
 		}
