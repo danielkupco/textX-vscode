@@ -1,8 +1,7 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "textX",
-	"patterns": [
-		{
+	"patterns": [{
 			"include": "#keyword"
 		},
 		{
@@ -23,120 +22,246 @@
 	],
 	"repository": {
 		"keyword": {
-			"patterns": [
-				{
-					"name": "keyword.operator.textx",
-					"match": "(\\||\\?|\\*|\\+|\\#|\\!|\\&)"
+			"patterns": [{
+					"include": "#operator"
 				},
 				{
-					"name": "keyword.assignment.textx",
-					"match": "(\\?=|\\*=|\\+=|=)"
+					"include": "#assignment"
+				}
+			],
+			"repository": {
+				"operator": {
+					"patterns": [{
+						"name": "keyword.operator.textx",
+						"match": "(\\||\\?|\\*|\\+|#|\\!|\\&|\\(|\\))"
+					}]
+				},
+				"assignment": {
+					"patterns": [{
+						"name": "keyword.operator.assignment.textx",
+						"match": "(\\?=|\\*=|\\+=|=)"
+					}]
+				}
+			}
+		},
+		"constant": {
+			"patterns": [{
+					"name": "constant.language.textx",
+					"match": "(true|false|eolterm)"
 				}
 			]
 		},
 		"string": {
-			"patterns": [
-				{
-					"name": "string.quoted.double.textx",
-					"begin": "\"",
-					"end": "\"",
-					"patterns": [
-						{
-							"name": "constant.character.escape.textx",
-							"match": "\\\\."
-						}
-					]
+			"patterns": [{
+					"include": "#double-quoted"
 				},
 				{
-					"name": "string.quoted.single.textx",
-					"begin": "'",
-					"end": "'",
-					"patterns": [
-						{
-							"name": "constant.character.escape.textx",
-							"match": "\\\\."
-						}
-					]
+					"include": "#single-quoted"
 				},
 				{
-					"name": "string.regexp.textx",
-					"match": "\\/[^\\*\\+\\?\\s]*.*\\/"
+					"include": "#regexp"
 				}
-			]
-		},
-		"constant": {
-			"patterns": [
-				{
-					"name": "constant.language.textx",
-					"match": "\b(true|false)\b"
+			],
+			"repository": {
+				"double-quoted": {
+					"patterns": [{
+						"name": "string.quoted.double.textx",
+						"begin": "\"",
+						"end": "\"",
+						"patterns": [{
+							"include": "#escape-character"
+						}]
+					}]
+				},
+				"single-quoted": {
+					"patterns": [{
+						"name": "string.quoted.single.textx",
+						"begin": "'",
+						"end": "'",
+						"patterns": [{
+							"include": "#escape-character"
+						}]
+					}]
+				},
+				"regexp": {
+					"patterns": [{
+						"name": "string.regexp.textx",
+						"match": "\\/[^\\*\\+\\?\\s]*.+\\/"
+					}]
+				},
+				"escape-character": {
+					"patterns": [{
+						"name": "constant.character.escape.textx",
+						"match": "\\\\."
+					}]
 				}
-			]
+			}
 		},
 		"support": {
-			"patterns": [
-				{
-					"name": "support.type.basetype.textx",
-					"comment": "Basetypes provided by the framework",
-					"match": "\b(STRING|INT|FLOAT|BOOL|ID)\b"
-				}
-			]
+			"patterns": [{
+				"name": "support.type.basetype.textx",
+				"comment": "Basetypes provided by the framework",
+				"match": "(BASETYPE|NUMBER|INT|FLOAT|STRING|BOOL|ID)"
+			}]
 		},
 		"comment": {
-			"patterns": [
-				{
-					"name": "comment.line.double-slash.textx",
-					"match": "\\/\\/.*$"
+			"patterns": [{
+					"include": "#line-comment"
 				},
 				{
-					"name": "comment.block.textx",
-					"begin": "\\/\\*",
-					"end": "\\*\\/"
+					"include": "#block-comment"
 				}
-			]
+			],
+			"repository": {
+				"line-comment": {
+					"patterns": [{
+						"name": "comment.line.double-slash.textx",
+						"match": "\\/\\/.*$"
+					}]
+				},
+				"block-comment": {
+					"patterns": [{
+						"name": "comment.block.textx",
+						"begin": "\\/\\*",
+						"end": "\\*\\/"
+					}]
+				}
+			}
 		},
 		"meta": {
-			"patterns": [
-				{
-					"name": "meta.entity.textx",
-					"comment": "Definition of an entity",
-					"begin": "^(\\w)+:(\\s|\\/\\/|\\/\\*)",
-					"beginCaptures": {
-						"1": {
-							"name": "entity.name.entity.textx"
-						}
-					},
-					"end": "^;(\\s|\\/\\/|\\/\\*)",
-					"patterns": [
-						{
-							"name": "meta.property.textx",
-							"comment": "A property within an entity",
-							"match": "(\\w+)\\b(=|\\+=|\\*=)(\\w+|\\[\\w+\\])",
-							"captures": {
-								"1": {
-									"name": "entity.name.property.textx"
-								},
-								"3": {
-									"name": "storage.type.property.textx",
+			"patterns": [{
+				"include": "#entity"
+			}],
+			"repository": {
+				"entity": {
+					"patterns": [{
+						"name": "meta.entity.textx",
+						"comment": "Definition of an entity",
+						"begin": "(\\w+):(\\s|\\/\\/|\\/\\*)?",
+						"beginCaptures": {
+							"1": {
+								"name": "entity.name.entity.textx"
+							}
+						},
+						"end": ";(\\s|\\/\\/|\\/\\*)?",
+						"patterns": [{
+								"include": "#comment"
+							},
+							{
+								"include": "#string"
+							},
+							{
+								"include": "#property"
+							},
+							{
+								"include": "#optional-property"
+							},
+							{
+								"include": "#repetition-property"
+							}
+						]
+					}],
+					"repository": {
+						"property": {
+							"patterns": [{
+								"name": "meta.property.textx",
+								"comment": "A property within an entity",
+								"match": "(\\w+)?\\s?(=|\\+=|\\*=)\\s?(\\w+|\\[(\\w+(\\|\\w+)*)\\]|\\((\\w+(\\|\\w+)*)\\))",
+								"captures": {
+									"1": {
+										"name": "entity.name.property.textx"
+									},
+									"2": {
+										"name": "keyword.operator.assignment.textx"
+									},
+									"3": {
+										"name": "storage.type.property.textx",
+										"patterns": [{
+												"name": "keyword.operator.reference.open.squarebracket.textx",
+												"match": "\\["
+											},
+											{
+												"name": "keyword.operator.reference.closed.squarebracket.textx",
+												"match": "\\]"
+											},
+											{
+												"name": "storage.type.property.name.textx",
+												"match": "\\w+"
+											},
+											{
+												"name": "keyword.operator.ordered-choice.textx",
+												"match": "\\|"
+											},
+											{
+												"name": "keyword.operator.bracket.open.textx",
+												"match": "\\("
+											},
+											{
+												"name": "keyword.operator.bracket.closed.textx",
+												"match": "\\)"
+											}
+										]
+									}
+								}
+							}]
+						},
+						"optional-property": {
+							"patterns": [
+								{
+									"name": "meta.property.optional.textx",
+									"begin": "(\\()",
+									"beginCaptures": {
+										"1": {
+											"name": "keyword.operator.bracket.open.textx"
+										}
+									},
+									"end": "(\\))(\\?)",
+									"endCaptures": {
+										"1": {
+											"name": "keyword.operator.bracket.closed.textx"
+										},
+										"2": {
+											"name": "keyword.operator.optional.textx"
+										}
+									},
 									"patterns": [
 										{
-											"name": "keyword.operator.reference.open.squarebracket.textx",
-											"match": "\\["
-										},
-										{
-											"name": "keyword.operator.reference.closed.squarebracket.textx",
-											"match": "\\]"
-										},
-										{
-											"name": "storage.type.property.name.textx",
-											"match": "\\w+"
+											"include": "#property"
 										}
 									]
-								} 
-							}
+								}
+							]
+						},
+						"repetition-property": {
+							"patterns": [
+								{
+									"name": "meta.property.repetition.textx",
+									"begin": "(\\()",
+									"beginCaptures": {
+										"1": {
+											"name": "keyword.operator.bracket.open.textx"
+										}
+									},
+									"end": "(\\))(\\*|\\+)",
+									"endCaptures": {
+										"1": {
+											"name": "keyword.operator.bracket.closed.textx"
+										},
+										"2": {
+											"name": "keyword.operator.repetition.textx"
+										}
+									},
+									"patterns": [
+										{
+											"include": "#property"
+										}
+									]
+								}
+							]
 						}
-					]
+					}
 				}
-			]
+			}
 		}
 	},
 	"scopeName": "source.textx"
