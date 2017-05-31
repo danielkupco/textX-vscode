@@ -33,7 +33,7 @@
 				"operator": {
 					"patterns": [{
 						"name": "keyword.operator.textx",
-						"match": "(\\||\\?|\\*|\\+|#|\\!|\\&|\\(|\\))"
+						"match": "(\\||\\?|\\*|\\+|#|\\!|\\&)"
 					}]
 				},
 				"assignment": {
@@ -148,120 +148,163 @@
 						},
 						"end": ";(\\s|\\/\\/|\\/\\*)?",
 						"patterns": [{
+								"include": "#property"
+							},
+							{
 								"include": "#comment"
 							},
 							{
 								"include": "#string"
-							},
-							{
-								"include": "#regexp"
-							},
-							{
-								"include": "#property"
-							},
-							{
-								"include": "#property-group"
-							},
-							{
-								"include": "#property-type"
 							}
 						]
 					}],
 					"repository": {
 						"property": {
 							"patterns": [{
-								"name": "meta.property.textx",
-								"comment": "A property within an entity",
-								"match": "(\\w+)?\\s?(=|\\?=|\\+=|\\*=)\\s?()",
-								"captures": {
-									"1": {
-										"name": "entity.name.property.textx"
-									},
-									"2": {
-										"name": "keyword.operator.assignment.textx"
-									},
-									"3": {
-										"patterns": [{
-											"include": "#property-type"
-										}]
-									}
-								}
-							}]
-						},
-						"property-type": {
-							"patterns": [{
-								"name": "storage.type.property.textx",
-								"match": "(\\[[\\w\\|]+\\])|(\\w+(\\|\\w+)*)|(\\w+)|(\"\\w+\")",
-								"captures": {
-									"1": {
-										"name": "storage.type.property.reference.textx",
-										"patterns": [{
-											"name": "keyword.operator.reference.open.squarebracket.textx",
-											"match": "\\["
-										},
-										{
-											"name": "keyword.operator.reference.closed.squarebracket.textx",
-											"match": "\\]"
-										},
-										{
-											"include": "#property-type"
-										}]
-									},
-									"2": {
-										"name": "storage.type.property.choice.textx",
-										"patterns": [{
-											"name": "storage.type.property.name.textx",
-											"match": "\\w+"
-										},
-										{
-											"name": "keyword.operator.property.choice.textx",
-											"match": "\\|"
-										}]
-									},
-									"3": {
-										"patterns": [{
-											"name": "storage.type.property.name.textx",
-											"match": "\\w+"
-										}]
-									},
-									"4": {
-										"name": "storage.type.property.string.textx"
-									}
-								}
-							}]
-						},
-						"property-group": {
-							"patterns": [{
-								"name": "meta.property.group.textx",
-								"begin": "(\\()",
-								"beginCaptures": {
-									"1": {
-										"name": "keyword.operator.bracket.open.textx"
-									}
+									"include": "#property-group"
 								},
-								"end": "(\\))(\\?|\\*|\\+|#)?",
-								"endCaptures": {
-									"1": {
-										"name": "keyword.operator.bracket.closed.textx"
-									},
-									"2": {
-										"name": "keyword.operator.property.group.textx"
-									}
+								{
+									"include": "#property-named"
 								},
-								"patterns": [{
-										"include": "#string"
-									},
-									{
-										"include": "#property"
-									},
-									{
-										"include": "#property-group"
-									},
-									{
-										"include": "#property-type"
-									}
-								]
-							}]
+								{
+									"include": "#property-type"
+								}
+							],
+							"repository": {
+								"property-group": {
+									"patterns": [{
+										"name": "meta.property.group.textx",
+										"begin": "(\\|\\s*)?(\\()",
+										"beginCaptures": {
+											"1": {
+												"patterns": [{
+													"name": "keyword.operator.property.group.choice.textx",
+													"match": "\\|"
+												}]
+											},
+											"2": {
+												"name": "keyword.operator.bracket.open.textx"
+											}
+										},
+										"end": "(\\))(\\?|\\*|\\+|#)?(\\[(('.')|(\".\"))\\])?",
+										"endCaptures": {
+											"1": {
+												"name": "keyword.operator.bracket.closed.textx"
+											},
+											"2": {
+												"name": "keyword.operator.property.group.repetition.textx"
+											},
+											"3": {
+												"name": "support.property.group.delimit.textx",
+												"patterns": [{
+													"name": "keyword.operator.property.group.delimiter.textx",
+													"match": "[^\\[\\]\"']"
+												}]
+											}
+										},
+										"patterns": [{
+											"include": "#property"
+										}]
+									}]
+								},
+								"property-named": {
+									"patterns": [{
+										"name": "meta.property.named.textx",
+										"comment": "A named property within an entity",
+										"match": "(\\w+)\\s?(=|\\?=|\\+=|\\*=)\\s?((\\[[\\w\\|]+\\])|(\\w+(\\|\\w+)+)|(\\w+)(\\[(('.')|(\".\"))\\])?|([\"']\\w+[\"']))",
+										"captures": {
+											"1": {
+												"name": "entity.name.property.textx"
+											},
+											"2": {
+												"name": "keyword.operator.assignment.textx"
+											},
+											"3": {
+												"patterns": [{
+													"include": "#property-type"
+												}]
+											}
+										}
+									}]
+								},
+								"property-type": {
+									"patterns": [{
+											"name": "storage.type.property.reference.textx",
+											"match": "(\\[[\\w\\|]+\\])|(\\w+(\\|\\w+)+)|(\\w+)(\\[(('.')|(\".\"))\\])?|([\"']\\w+[\"'])",
+											"captures": {
+												"1": {
+													"name": "storage.type.property.reference.textx",
+													"patterns": [{
+															"name": "keyword.operator.reference.open.squarebracket.textx",
+															"match": "\\["
+														},
+														{
+															"name": "keyword.operator.reference.closed.squarebracket.textx",
+															"match": "\\]"
+														},
+														{
+															"include": "#property-type"
+														}
+													]
+												},
+												"2": {
+													"name": "storage.type.property.choice.textx",
+													"patterns": [{
+															"name": "storage.type.property.name.textx",
+															"match": "\\w+"
+														},
+														{
+															"name": "keyword.operator.property.choice.textx",
+															"match": "\\|"
+														}
+													]
+												},
+												"4": {
+													"patterns": [{
+														"name": "storage.type.property.name.textx",
+														"match": "\\w+"
+													}]
+												},
+												"5": {
+													"name": "support.property.group.delimit.textx",
+													"patterns": [{
+														"name": "keyword.operator.property.group.delimiter.textx",
+														"match": "[^\\[\\]\"']"
+													}]
+												},
+												"9": {
+													"name": "storage.type.property.string.textx"
+												}
+											}
+										},
+										{
+											"name": "storage.type.property.textx",
+											"match": "(\\|\\s*)?((\\w+\\??)|([\"'\\/]\\w+[\"'\\/]))",
+											"captures": {
+												"1": {
+													"patterns": [{
+														"name": "keyword.operator.property.type.choice.textx",
+														"match": "\\|"
+													}]
+												},
+												"3": {
+													"patterns": [{
+														"name": "storage.type.property.name.textx",
+														"match": "\\w+"
+													},
+													{
+														"name": "keyword.operator.type.property.optional.textx",
+														"match": "\\?"
+													}]
+												},
+												"4": {
+													"name": "storage.type.property.string.textx"
+												}
+											}
+										}
+									]
+								}
+							}
 						}
 					}
 				}
