@@ -46,10 +46,9 @@
 		},
 		"constant": {
 			"patterns": [{
-					"name": "constant.language.textx",
-					"match": "(true|false|eolterm)"
-				}
-			]
+				"name": "constant.language.textx",
+				"match": "(true|false|eolterm)"
+			}]
 		},
 		"string": {
 			"patterns": [{
@@ -86,7 +85,11 @@
 				"regexp": {
 					"patterns": [{
 						"name": "string.regexp.textx",
-						"match": "\\/[^\\*\\+\\?\\s]*.+\\/"
+						"begin": "/",
+						"end": "/",
+						"patterns": [{
+							"include": "#escape-character"
+						}]
 					}]
 				},
 				"escape-character": {
@@ -151,13 +154,16 @@
 								"include": "#string"
 							},
 							{
+								"include": "#regexp"
+							},
+							{
 								"include": "#property"
 							},
 							{
-								"include": "#optional-property"
+								"include": "#property-group"
 							},
 							{
-								"include": "#repetition-property"
+								"include": "#property-type"
 							}
 						]
 					}],
@@ -166,7 +172,7 @@
 							"patterns": [{
 								"name": "meta.property.textx",
 								"comment": "A property within an entity",
-								"match": "(\\w+)?\\s?(=|\\+=|\\*=)\\s?(\\w+|\\[(\\w+(\\|\\w+)*)\\]|\\((\\w+(\\|\\w+)*)\\))",
+								"match": "(\\w+)?\\s?(=|\\?=|\\+=|\\*=)\\s?()",
 								"captures": {
 									"1": {
 										"name": "entity.name.property.textx"
@@ -175,89 +181,87 @@
 										"name": "keyword.operator.assignment.textx"
 									},
 									"3": {
-										"name": "storage.type.property.textx",
 										"patterns": [{
-												"name": "keyword.operator.reference.open.squarebracket.textx",
-												"match": "\\["
-											},
-											{
-												"name": "keyword.operator.reference.closed.squarebracket.textx",
-												"match": "\\]"
-											},
-											{
-												"name": "storage.type.property.name.textx",
-												"match": "\\w+"
-											},
-											{
-												"name": "keyword.operator.ordered-choice.textx",
-												"match": "\\|"
-											},
-											{
-												"name": "keyword.operator.bracket.open.textx",
-												"match": "\\("
-											},
-											{
-												"name": "keyword.operator.bracket.closed.textx",
-												"match": "\\)"
-											}
-										]
+											"include": "#property-type"
+										}]
 									}
 								}
 							}]
 						},
-						"optional-property": {
-							"patterns": [
-								{
-									"name": "meta.property.optional.textx",
-									"begin": "(\\()",
-									"beginCaptures": {
-										"1": {
-											"name": "keyword.operator.bracket.open.textx"
-										}
-									},
-									"end": "(\\))(\\?)",
-									"endCaptures": {
-										"1": {
-											"name": "keyword.operator.bracket.closed.textx"
+						"property-type": {
+							"patterns": [{
+								"name": "storage.type.property.textx",
+								"match": "(\\[[\\w\\|]+\\])|(\\w+(\\|\\w+)*)|(\\w+)|(\"\\w+\")",
+								"captures": {
+									"1": {
+										"name": "storage.type.property.reference.textx",
+										"patterns": [{
+											"name": "keyword.operator.reference.open.squarebracket.textx",
+											"match": "\\["
 										},
-										"2": {
-											"name": "keyword.operator.optional.textx"
-										}
-									},
-									"patterns": [
 										{
-											"include": "#property"
-										}
-									]
+											"name": "keyword.operator.reference.closed.squarebracket.textx",
+											"match": "\\]"
+										},
+										{
+											"include": "#property-type"
+										}]
+									},
+									"2": {
+										"name": "storage.type.property.choice.textx",
+										"patterns": [{
+											"name": "storage.type.property.name.textx",
+											"match": "\\w+"
+										},
+										{
+											"name": "keyword.operator.property.choice.textx",
+											"match": "\\|"
+										}]
+									},
+									"3": {
+										"patterns": [{
+											"name": "storage.type.property.name.textx",
+											"match": "\\w+"
+										}]
+									},
+									"4": {
+										"name": "storage.type.property.string.textx"
+									}
 								}
-							]
+							}]
 						},
-						"repetition-property": {
-							"patterns": [
-								{
-									"name": "meta.property.repetition.textx",
-									"begin": "(\\()",
-									"beginCaptures": {
-										"1": {
-											"name": "keyword.operator.bracket.open.textx"
-										}
+						"property-group": {
+							"patterns": [{
+								"name": "meta.property.group.textx",
+								"begin": "(\\()",
+								"beginCaptures": {
+									"1": {
+										"name": "keyword.operator.bracket.open.textx"
+									}
+								},
+								"end": "(\\))(\\?|\\*|\\+|#)?",
+								"endCaptures": {
+									"1": {
+										"name": "keyword.operator.bracket.closed.textx"
 									},
-									"end": "(\\))(\\*|\\+)",
-									"endCaptures": {
-										"1": {
-											"name": "keyword.operator.bracket.closed.textx"
-										},
-										"2": {
-											"name": "keyword.operator.repetition.textx"
-										}
+									"2": {
+										"name": "keyword.operator.property.group.textx"
+									}
+								},
+								"patterns": [{
+										"include": "#string"
 									},
-									"patterns": [
-										{
-											"include": "#property"
-										}
-									]
-								}
-							]
+									{
+										"include": "#property"
+									},
+									{
+										"include": "#property-group"
+									},
+									{
+										"include": "#property-type"
+									}
+								]
+							}]
 						}
 					}
 				}
