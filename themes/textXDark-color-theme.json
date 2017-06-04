@@ -3,19 +3,34 @@
 	"author": "Daniel Kupčo",
 	"comment": "Visual Studio Code dark theme for textX language.",
     "colors": {
-		"editorBackground": "#000c18",
-		"editorForeground": "#6688cc",
+		"editor.background": "#121212",
+		"editor.foreground": "#cccccc",
+		"editor.lineHighlightBackground": "#232323",
+		"editor.lineHighlightBorder": "#cccccc",
 
-		"tabsContainerBackground": "#1c1c2a",
-		"inactiveTabBackground": "#10192c",
-		"activityBarBackground": "#051336"
+		"editorLineNumber.foreground": "#999999",
+
+		"editor.selectionBackground": "#044404",
+		"editor.selectionHighlightBackground": "#044404",
+
+
+		"sideBar.background": "#222222",
+		"statusBar.background": "#004f00",
+
+		"editorGroupHeader.tabsBackground": "#1c1c1c",
+
+		"tab.inactiveBackground": "#2e2e2e",
+		"tab.activeBackground": "#111111",
+		"tab.border": "#777777",
+
+		"activityBar.background": "#111111"
 	},
 	"tokenColors": [
 		{
 			"name": "TextX default",
 			"scope": "source.textx",
 			"settings": {
-				"background": "#6688cc",
+				"background": "#051336",
 				"foreground": "#ffffff"
 			}
 		},
@@ -52,7 +67,7 @@
 		},
 		{
 			"name": "Built-in constants",
-			"scope": "constant.language",
+			"scope": "constant.language.textx",
 			"settings": {
 				"foreground": "#d811a3"
 			}
@@ -66,7 +81,7 @@
 		},
 		{
 			"name": "Keyword operators",
-			"scope": "keyword.operator",
+			"scope": "keyword.operator.textx",
 			"settings": {
 				"foreground": "#ffffff"
 			}
@@ -108,7 +123,7 @@
 			"name": "Storage types",
 			"scope": "storage.type",
 			"settings": {
-				"fontStyle": "italic",
+				"fontStyle": "",
 				"foreground": "#c96bf9"
 			}
 		},
@@ -122,17 +137,26 @@
 		},
 		{
 			"name": "Base types",
+			"scope": "support.type",
+			"settings": {
+				"foreground": "#8cd4ff",
+				"fontStyle": "bold italic"
+			}
+		},
+		{
+			"name": "Base types",
 			"scope": "support.type.basetype",
 			"settings": {
 				"foreground": "#b54149",
-				"fontStyle": "bold italic"
+				"fontStyle": "bold"
 			}
 		},
 		{
 			"name": "Property names",
 			"scope": "entity.name.property",
 			"settings": {
-				"foreground": "#bcff82"
+				"foreground": "#bcff82",
+				"fontStyle": "italic"
 			}
 		}
 	]

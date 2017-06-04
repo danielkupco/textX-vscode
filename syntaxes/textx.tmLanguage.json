@@ -95,6 +95,7 @@
 				"escape-character": {
 					"patterns": [{
 						"name": "constant.character.escape.textx",
+						"comment": "Escape character within regular expression.",
 						"match": "\\\\."
 					}]
 				}
@@ -108,7 +109,7 @@
 				"basetypes": {
 					"patterns": [{
 						"name": "support.type.basetype.textx",
-						"comment": "Basetypes provided by the framework",
+						"comment": "Base types provided by the framework.",
 						"match": "(BASETYPE|NUMBER|INT|FLOAT|STRING|BOOL|ID)"
 					}]
 				}
@@ -146,7 +147,7 @@
 				"entity": {
 					"patterns": [{
 						"name": "meta.entity.textx",
-						"comment": "Definition of an entity",
+						"comment": "Definition of an entity.",
 						"begin": "(\\w+):(\\s|\\/\\/|\\/\\*)?",
 						"beginCaptures": {
 							"1": {
@@ -181,11 +182,13 @@
 								"property-group": {
 									"patterns": [{
 										"name": "meta.property.group.textx",
+										"comment": "Properties, property types or strings grouped within an entity surrounded with parentheses.",
 										"begin": "(\\|\\s*)?(\\()",
 										"beginCaptures": {
 											"1": {
 												"patterns": [{
 													"name": "keyword.operator.choice.property.group.textx",
+													"comment": "Choice operator within property group.",
 													"match": "\\|"
 												}]
 											},
@@ -212,6 +215,7 @@
 														"match": "\\]"
 													}, {
 														"name": "keyword.operator.property.group.delimiter.textx",
+														"comment": "Delimiter for property group.",
 														"match": "[^\\[\\]\"']"
 													}
 												]
@@ -225,7 +229,7 @@
 								"property-named": {
 									"patterns": [{
 										"name": "meta.property.named.textx",
-										"comment": "A named property within an entity",
+										"comment": "A named property within an entity.",
 										"match": "(\\|\\s*)?(\\w+)\\s?(=|\\?=|\\+=|\\*=)\\s?((\\[[\\w\\|]+\\])|(\\(?\\w+(\\|\\w+)+\\)?)|(\\w+)(\\[(('.')|(\".\"))\\])?|([\"'\\/].*?[\"'\\/]))",
 										"captures": {
 											"1": {
@@ -255,6 +259,7 @@
 								"property-type": {
 									"patterns": [{
 											"name": "storage.type.property.reference.textx",
+											"comment": "A property type. Can be a string, regex, base type or one of the user defined entities.",
 											"match": "(\\[[\\w\\|]+\\])|(\\w+(\\|\\w+)+)|(\\w+)(\\[(('.')|(\".\"))\\])?|([\"'\\/].*?[\"'\\/](\\s?\\|\\s?[\"'\\/].*?[\"'\\/])*)",
 											"captures": {
 												"1": {
@@ -327,6 +332,7 @@
 										},
 										{
 											"name": "storage.type.property.textx",
+											"comment": "A property type. Support for optional type and strings.",
 											"match": "(\\|\\s*)?((\\w+\\??)|([\"'\\/].*?[\"'\\/]))",
 											"captures": {
 												"1": {
