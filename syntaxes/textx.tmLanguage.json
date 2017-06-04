@@ -102,10 +102,17 @@
 		},
 		"support": {
 			"patterns": [{
-				"name": "support.type.basetype.textx",
-				"comment": "Basetypes provided by the framework",
-				"match": "(BASETYPE|NUMBER|INT|FLOAT|STRING|BOOL|ID)"
-			}]
+				"include": "#basetypes"
+			}],
+			"repository": {
+				"basetypes": {
+					"patterns": [{
+						"name": "support.type.basetype.textx",
+						"comment": "Basetypes provided by the framework",
+						"match": "(BASETYPE|NUMBER|INT|FLOAT|STRING|BOOL|ID)"
+					}]
+				}
+			}
 		},
 		"comment": {
 			"patterns": [{
@@ -178,7 +185,7 @@
 										"beginCaptures": {
 											"1": {
 												"patterns": [{
-													"name": "keyword.operator.property.group.choice.textx",
+													"name": "keyword.operator.choice.property.group.textx",
 													"match": "\\|"
 												}]
 											},
@@ -197,9 +204,17 @@
 											"3": {
 												"name": "support.property.group.delimit.textx",
 												"patterns": [{
-													"name": "keyword.operator.property.group.delimiter.textx",
-													"match": "[^\\[\\]\"']"
-												}]
+														"name": "keyword.operator.delimit.squarebracket.open.textx",
+														"match": "\\["
+													},
+													{
+														"name": "keyword.operator.delimit.squarebracket.closed.textx",
+														"match": "\\]"
+													}, {
+														"name": "keyword.operator.property.group.delimiter.textx",
+														"match": "[^\\[\\]\"']"
+													}
+												]
 											}
 										},
 										"patterns": [{
@@ -215,7 +230,7 @@
 										"captures": {
 											"1": {
 												"patterns": [{
-													"name": "keyword.operator.property.named.choice.textx",
+													"name": "keyword.operator.choice.property.named.textx",
 													"match": "\\|"
 												}]
 											},
@@ -227,11 +242,12 @@
 											},
 											"4": {
 												"patterns": [{
-													"include": "#property-group"
-												},
-												{
-													"include": "#property-type"
-												}]
+														"include": "#property-group"
+													},
+													{
+														"include": "#property-type"
+													}
+												]
 											}
 										}
 									}]
@@ -244,12 +260,14 @@
 												"1": {
 													"name": "storage.type.property.reference.textx",
 													"patterns": [{
-															"name": "keyword.operator.reference.open.squarebracket.textx",
+															"name": "keyword.operator.reference.squarebracket.open.textx",
 															"match": "\\["
 														},
 														{
-															"name": "keyword.operator.reference.closed.squarebracket.textx",
+															"name": "keyword.operator.reference.squarebracket.closed.textx",
 															"match": "\\]"
+														}, {
+															"include": "#support"
 														},
 														{
 															"include": "#property-type"
@@ -259,17 +277,22 @@
 												"2": {
 													"name": "storage.type.property.choice.textx",
 													"patterns": [{
+															"include": "#support"
+														},
+														{
 															"name": "storage.type.property.name.textx",
 															"match": "\\w+"
 														},
 														{
-															"name": "keyword.operator.property.choice.textx",
+															"name": "keyword.operator.choice.property.textx",
 															"match": "\\|"
 														}
 													]
 												},
 												"4": {
 													"patterns": [{
+														"include": "#support"
+													}, {
 														"name": "storage.type.property.name.textx",
 														"match": "\\w+"
 													}]
@@ -277,16 +300,24 @@
 												"5": {
 													"name": "support.property.group.delimit.textx",
 													"patterns": [{
-														"name": "keyword.operator.property.group.delimiter.textx",
-														"match": "[^\\[\\]\"']"
-													}]
+															"name": "keyword.operator.delimit.squarebracket.open.textx",
+															"match": "\\["
+														},
+														{
+															"name": "keyword.operator.delimit.squarebracket.closed.textx",
+															"match": "\\]"
+														}, {
+															"name": "keyword.operator.property.group.delimiter.textx",
+															"match": "[^\\[\\]\"']"
+														}
+													]
 												},
 												"9": {
 													"name": "storage.type.property.string.textx",
 													"patterns": [{
-														"name": "keyword.operator.property.type.string.choice.textx",
-														"match": "(?<=[\"'\\/])\\|"
-													},
+															"name": "keyword.operator.choice.property.type.string.textx",
+															"match": "(?<=[\"'\\/])\\|"
+														},
 														{
 															"include": "#string"
 														}
@@ -300,12 +331,14 @@
 											"captures": {
 												"1": {
 													"patterns": [{
-														"name": "keyword.operator.property.type.choice.textx",
+														"name": "keyword.operator.choice.property.type.textx",
 														"match": "\\|"
 													}]
 												},
 												"3": {
 													"patterns": [{
+															"include": "#support"
+														}, {
 															"name": "storage.type.property.name.textx",
 															"match": "\\w+"
 														},

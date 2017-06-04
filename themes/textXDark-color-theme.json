@@ -1,5 +1,7 @@
 {
 	"name": "textXDark",
+	"author": "Daniel Kupčo",
+	"comment": "Visual Studio Code dark theme for textX language.",
     "colors": {
 		"editorBackground": "#000c18",
 		"editorForeground": "#6688cc",
@@ -10,28 +12,40 @@
 	},
 	"tokenColors": [
 		{
+			"name": "TextX default",
+			"scope": "source.textx",
 			"settings": {
-				"background": "#000c18",
-				"foreground": "#6688cc"
+				"background": "#6688cc",
+				"foreground": "#ffffff"
 			}
 		},
 		{
 			"name": "Comments",
 			"scope": "comment",
 			"settings": {
-				"foreground": "#384887"
+				"foreground": "#fffa99"
 			}
 		},
 		{
 			"name": "Strings",
 			"scope": "string",
 			"settings": {
-				"foreground": "#22aa44"
+				"foreground": "#ff9166"
+			}
+		},
+		{
+			"name": "Regular expressions",
+			"scope": "string.regexp",
+			"settings": {
+				"foreground": "#56ff3f"
 			}
 		},
 		{
 			"name": "Numbers",
-			"scope": "constant.numeric",
+			"scope": [
+				"constant.character",
+				"constant.numeric"
+			],
 			"settings": {
 				"foreground": "#f280d0"
 			}
@@ -40,39 +54,54 @@
 			"name": "Built-in constants",
 			"scope": "constant.language",
 			"settings": {
-				"foreground": "#f280d0"
+				"foreground": "#d811a3"
 			}
 		},
 		{
 			"name": "User-defined constants",
-			"scope": [
-				"constant.character",
-				"constant.other"
-			],
+			"scope": "constant.other",
 			"settings": {
-				"foreground": "#f280d0"
+				"foreground": "#6d0050"
 			}
 		},
 		{
-			"name": "Variables",
-			"scope": "variable",
+			"name": "Keyword operators",
+			"scope": "keyword.operator",
 			"settings": {
+				"foreground": "#ffffff"
+			}
+		},
+		{
+			"name": "Choice operators",
+			"scope": [
+				"keyword.operator.choice",
+				"keyword.operator.delimit.squarebracket"
+			],
+			"settings": {
+				"foreground": "#f7e229",
 				"fontStyle": ""
 			}
 		},
 		{
-			"name": "Keywords",
-			"scope": "keyword",
+			"name": "Squarebrackets",
+			"scope": [
+				"keyword.operator.reference.squarebracket",
+				"keyword.operator.delimit.squarebracket"
+			],
 			"settings": {
-				"foreground": "#225588"
+				"foreground": "#f7f451",
+				"fontStyle": ""
 			}
 		},
 		{
-			"name": "Storage",
-			"scope": "storage",
+			"name": "Delimiter",
+			"scope": [
+				"support.property.group.delimit",
+				"keyword.operator.property.group.delimiter"
+			],
 			"settings": {
-				"fontStyle": "",
-				"foreground": "#225588"
+				"fontStyle": "italic",
+				"foreground": "#f78550"
 			}
 		},
 		{
@@ -80,18 +109,30 @@
 			"scope": "storage.type",
 			"settings": {
 				"fontStyle": "italic",
-				"foreground": "#9966b8"
+				"foreground": "#c96bf9"
 			}
 		},
 		{
-			"name": "Class names",
-			"scope": [
-				"entity.name.class",
-				"entity.name.type"
-			],
+			"name": "Entity names",
+			"scope": "entity.name.entity",
 			"settings": {
-				"fontStyle": "underline",
-				"foreground": "#ffeebb"
+				"fontStyle": "bold",
+				"foreground": "#8cd4ff"
+			}
+		},
+		{
+			"name": "Base types",
+			"scope": "support.type.basetype",
+			"settings": {
+				"foreground": "#b54149",
+				"fontStyle": "bold italic"
+			}
+		},
+		{
+			"name": "Property names",
+			"scope": "entity.name.property",
+			"settings": {
+				"foreground": "#bcff82"
 			}
 		}
 	]
