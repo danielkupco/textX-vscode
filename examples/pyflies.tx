@@ -65,7 +65,7 @@ ConditionMatch:
 ;
 
 ConditionMatchExpression:
-   FixedCondition|OrdinalCondition|ExpressionCondition
+   FixedCondition|OrdinalCondition|INT
 ;
 
 FixedCondition:

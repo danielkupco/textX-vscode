@@ -1,6 +1,11 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"uuid": "fb6a7cfb-5c2a-4229-bb38-e10baa5ef1d8",
 	"name": "textX",
+	"scopeName": "source.textx",
+	"fileTypes": [
+		"tx"
+	],
 	"patterns": [{
 			"include": "#keyword"
 		},
@@ -258,9 +263,9 @@
 								},
 								"property-type": {
 									"patterns": [{
-											"name": "storage.type.property.reference.textx",
+											"name": "storage.type.property.definition.textx",
 											"comment": "A property type. Can be a string, regex, base type or one of the user defined entities.",
-											"match": "(\\[[\\w\\|]+\\])|(\\w+(\\|\\w+)+)|(\\w+)(\\[(('.')|(\".\"))\\])?|([\"'\\/].*?[\"'\\/](\\s?\\|\\s?[\"'\\/].*?[\"'\\/])*)",
+											"match": "(\\[[\\w\\|]+\\])|(\\w+(\\|\\w+)+)|(\\w+)(\\[(('.')|(\".\"))\\])?|([\"'\\/].*?[\"'\\/](\\s*\\|\\s*[\"'\\/].*?[\"'\\/])*)",
 											"captures": {
 												"1": {
 													"name": "storage.type.property.reference.textx",
@@ -321,7 +326,8 @@
 													"name": "storage.type.property.string.textx",
 													"patterns": [{
 															"name": "keyword.operator.choice.property.type.string.textx",
-															"match": "(?<=[\"'\\/])\\|"
+															"comment": "Match '|' as choice operator between string property type definitions (exclude optional spaces from match).",
+															"match": "(?<=[\"'\\/\\s*])\\|(?=[\"'\\/\\s*])"
 														},
 														{
 															"include": "#string"

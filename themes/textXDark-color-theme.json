@@ -1,5 +1,6 @@
 {
 	"name": "textXDark",
+	"uuid": "fb6a7cfb-5c2a-4229-bb38-e10baa5ef1d8",
 	"author": "Daniel Kupčo",
 	"comment": "Visual Studio Code dark theme for textX language.",
     "colors": {
